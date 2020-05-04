@@ -5,6 +5,8 @@
  */
 package principal;
 
+import dao.ClientesDAO;
+import entidades.POJO;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -18,7 +20,10 @@ public class main {
         Scanner sn = new Scanner(System.in);
         boolean salir = false;
         int opcion; 
- 
+        ClientesDAO cliente = null;
+        POJO miCliente = null;
+        cliente = new ClientesDAO();
+        
         while (!salir) {
  
            System.out.println("\n    Base de datos de clientes ");
@@ -31,7 +36,7 @@ public class main {
            System.out.println("0.- Salir");
  
             try {
- 
+                
                 System.out.println("Escribe una de las opciones");
                 opcion = sn.nextInt();
  
@@ -46,7 +51,10 @@ public class main {
                     break;
                     
                     case 3:
-                        
+                      if(cliente != null){
+                        cliente.insert(miCliente);
+                        System.out.println(miCliente);
+                      }
                     break;
                     
                     case 4:
