@@ -4,6 +4,7 @@ import entidades.POJO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -24,9 +25,51 @@ public class ClientesDAO {
         }
     }
 
-    //comprobar la conexion con la base de datos3
+    //comprobar la conexion con la base de datos
     public Connection getConexion() {
         return conexion;
+    }
+    
+    //leer
+    public POJO read(Integer id){
+        POJO cliente = null;
+        PreparedStatement stm = null;
+        
+        if (this.conexion == null) {
+            return null;
+        }
+        try {
+            String Query = "SELECT * FROM empleados WHERE id = ?";
+            stm = conexion.prepareStatement(Query);
+
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                cliente = new POJO (
+                        rs.getInt("id"),
+                        rs.getString("codigo"),
+                        rs.getString("empresa"),
+                        rs.getString("contacto"),
+                        rs.getString("carga_contacto"),
+                        rs.getString("direccion"),
+                        rs.getString("ciudad"),
+                        rs.getString("region"),
+                        rs.getInt("cp"),
+                        rs.getString("pais"),
+                        rs.getInt("telefono"),
+                        rs.getInt("fax")
+                    );
+            }
+
+            stm.close();
+
+        } catch (SQLException e) {
+
+            System.err.println("Error en el Select: " + e.getMessage() + stm.toString());
+        }
+
+        return cliente;
+        
     }
     
     //introducir 
@@ -59,16 +102,16 @@ public class ClientesDAO {
             
         }catch (SQLException e) {
            System.out.println("Error al insertar empleado: " + e.getMessage() + " " + stm.toString());
-      }finally{
+        }finally{
           try{
-              if (stm != null){
-              stm.close();
-          } 
-          }catch (SQLException e) {
-             System.err.println("Error al insertar empleado: " + e.getMessage() + " " + stm.toString());
+            if (stm != null){
+                stm.close();
+            } 
+            }catch (SQLException e) {
+                System.err.println("Error al insertar empleado: " + e.getMessage() + " " + stm.toString());
+            }
           }
-          }
-      return resultado;
+    return resultado;
   
  }
     

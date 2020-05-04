@@ -43,7 +43,11 @@ public class main {
                 switch (opcion) {
                    
                     case 1:
-                       
+                    miCliente = cliente.read(1);
+                    if(cliente!= null){
+                    System.out.println(miCliente.toString());
+                    }
+                    
                     break;
                     
                     case 2:
@@ -51,9 +55,8 @@ public class main {
                     break;
                     
                     case 3:
-                      
-                        cliente.insert(miCliente);
-                        System.out.println(miCliente);
+                    cliente.insert(miCliente);
+                    System.out.println(miCliente);
                       
                     break;
                     
