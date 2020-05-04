@@ -34,47 +34,43 @@ public class ClientesDAO {
       Boolean resultado = false;
       PreparedStatement stm = null;
       
-      if (this.conexion == null || cliente == null) {
-            return false;
+        if (this.conexion == null || cliente == null) {
+            return null;
         }
-
+        String sql = "INSERT INTO CLIENTES VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
     try{
-        if(cliente != null){
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost/neptuno", "root", "");
-            String sql = "INSERT INTO CLIENTES VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
-              stm = conexion.prepareStatement(sql);
-              stm.setInt(1, cliente.getId());
-              stm.setString(2, cliente.getCodigo());
-              stm.setString(3, cliente.getEmpresa());
-              stm.setString(4, cliente.getContacto());
-              stm.setString(5, cliente.getCargo_contacto());
-              stm.setString(6, cliente.getDireccion());
-              stm.setString(7, cliente.getCiudad());
-              stm.setString(8, cliente.getRegion());
-              stm.setInt(9, cliente.getCp());
-              stm.setString(10, cliente.getPais());
-              stm.setInt(11, cliente.getTelefono());
-              stm.setInt(12, cliente.getFax());
-           
+        stm = conexion.prepareStatement(sql);
+              stm.setString(1, cliente.getCodigo());
+              stm.setString(2, cliente.getEmpresa());
+              stm.setString(3, cliente.getContacto());
+              stm.setString(4, cliente.getCargo_contacto());
+              stm.setString(5, cliente.getDireccion());
+              stm.setString(6, cliente.getCiudad());
+              stm.setString(7, cliente.getRegion());
+              stm.setInt(8, cliente.getCp());
+              stm.setString(9, cliente.getPais());
+              stm.setInt(10, cliente.getTelefono());
+              stm.setInt(11, cliente.getFax());
+              stm.executeUpdate();
 
             if (stm.executeUpdate() > 0) {
                 resultado = true;
-
             }
-
-          }
-      }catch (SQLException ex) {
-           System.err.println("Error al insertar empleado: " + ex.getMessage() + " " + stm.toString());
+            
+        }catch (SQLException e) {
+           System.out.println("Error al insertar empleado: " + e.getMessage() + " " + stm.toString());
       }finally{
           try{
+              if (stm != null){
               stm.close();
-              conexion.close();
-          } catch (SQLException ex) {
-             System.err.println("Error al insertar empleado: " + ex.getMessage() + " " + stm.toString());
+          } 
+          }catch (SQLException e) {
+             System.err.println("Error al insertar empleado: " + e.getMessage() + " " + stm.toString());
           }
-      }
+          }
       return resultado;
   
  }
     
+   
 }

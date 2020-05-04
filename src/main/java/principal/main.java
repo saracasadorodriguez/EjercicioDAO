@@ -51,10 +51,10 @@ public class main {
                     break;
                     
                     case 3:
-                      if(cliente != null){
+                      
                         cliente.insert(miCliente);
                         System.out.println(miCliente);
-                      }
+                      
                     break;
                     
                     case 4:
