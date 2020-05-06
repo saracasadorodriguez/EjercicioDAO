@@ -32,7 +32,6 @@ public class ClientesDAO {
     }
     
     //mostrar clientes utilizando Arraylist
-    
     public ArrayList<POJO> mostrar(Integer desde, Integer cuantos, String order, String filtro) throws SQLException{
          ArrayList<POJO> mostrar = new ArrayList<>();
          POJO cliente = null;
@@ -107,6 +106,31 @@ public class ClientesDAO {
         return cliente;  
     }
     
+    //max
+    public Integer numeroid() {
+        PreparedStatement stm = null;
+        Integer id = null;
+        
+        if (this.conexion == null) {
+            return null;
+        }
+        
+        try {
+            String sql = "SELECT MAX(id) FROM `clientes`";
+            stm = conexion.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            
+            if(rs.next()){
+                id = rs.getInt("numeroID"); 
+            }
+            stm.close();
+            
+        } catch (SQLException e) {
+            System.err.println("Error en el Select: " + e.getMessage() + stm.toString());
+        }
+        return id;
+    }
+    
     //introducir 
     public Boolean insert(POJO cliente){ 
       Boolean resultado = false;
@@ -150,5 +174,75 @@ public class ClientesDAO {
         return resultado;
     }
     
+    
+     //actualizar datos del cliente
+    public Boolean update(POJO cliente) {
+        Boolean resultado = null;
+        PreparedStatement stm = null;
+
+        if (this.conexion == null || cliente == null) {
+            return false;
+        }
+
+        try {
+            String sql = "UPDATE empleados SET codigo = ?, empresa = ?, contacto = ?, cargo_contacto = ?"
+            + ", direccion = ?, ciudad = ?, region = ?, cp = ?, pais = ?, telefono = ?, fax = ? WHERE id = ?";
+            stm = conexion.prepareStatement(sql);
+            stm.setString(1, cliente.getCodigo());
+            stm.setString(2, cliente.getEmpresa());
+            stm.setString(3, cliente.getContacto());
+            stm.setString(4, cliente.getCargo_contacto());
+            stm.setString(5, cliente.getDireccion());
+            stm.setString(6, cliente.getCiudad());
+            stm.setString(7, cliente.getRegion());
+            stm.setInt(8, cliente.getCp());
+            stm.setString(9, cliente.getPais());
+            stm.setInt(10, cliente.getTelefono());
+            stm.setInt(11, cliente.getFax());
+              
+            if (stm.executeUpdate() > 0) {
+                resultado = true;
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error en el Update: " + e.getMessage()+ stm.toString());
+            
+        } finally {
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar la conexión: " + e.getMessage());
+            }
+        }
+
+        return resultado;
+    }
+
+    //eliminar
+    public Boolean delete(Integer idCliente) {
+        Boolean resultado = false;
+        PreparedStatement stm = null;
+
+        try {
+            String sql = "DELETE FROM empleados WHERE codigoempleado = ?";
+            stm = conexion.prepareStatement(sql);
+            stm.setInt(1, idCliente);
+
+            resultado = stm.execute();
+
+            stm.close();
+
+            System.out.println();
+
+        } catch (SQLException e) {
+
+            System.err.println("Error en el Delete: " + e.getMessage() + " " + stm.toString());
+        }
+        
+        return resultado;
+
+    }
    
 }

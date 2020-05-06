@@ -21,9 +21,10 @@ public class main {
         boolean salir = false;
         int opcion; 
         ClientesDAO cliente = null;
+          ClientesDAO DAO = new ClientesDAO(); 
         POJO miCliente = null;
         cliente = new ClientesDAO();
-        
+        int mas=0;
         while (!salir) {
  
            System.out.println("\n    Base de datos de clientes ");
@@ -42,11 +43,7 @@ public class main {
  
                 switch (opcion) {
                    
-                    case 1:
-                    miCliente = cliente.read(1);
-                    if(cliente!= null){
-                    System.out.println(miCliente.toString());
-                    }
+                    case 1:  
                     
                     break;
                     
@@ -55,9 +52,7 @@ public class main {
                     break;
                     
                     case 3:
-                    cliente.insert(miCliente);
-                    System.out.println(miCliente);
-                      
+
                     break;
                     
                     case 4:
@@ -82,5 +77,9 @@ public class main {
             }
         }
  
+    }
+
+    private static void mostrar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
