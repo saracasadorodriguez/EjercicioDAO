@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -30,8 +31,44 @@ public class ClientesDAO {
         return conexion;
     }
     
+    //mostrar clientes utilizando Arraylist
+    
+    public ArrayList<POJO> mostrar(Integer desde, Integer cuantos, String order, String filtro) throws SQLException{
+         ArrayList<POJO> mostrar = new ArrayList<>();
+         POJO cliente = null;
+         PreparedStatement stm = null;
+        if (this.conexion == null){
+            return null;
+        }
+        try{
+            String sql = "SELECT * from clientes LIMIT ? " + ", ? ";
+            stm = conexion.prepareStatement(sql); 
+            ResultSet rs = stm.executeQuery(sql); 
+            while(rs.next()){
+                cliente = new POJO(
+                    rs.getInt("id"),
+                    rs.getString("codigo"),
+                    rs.getString("empresa"),
+                    rs.getString("contacto"),
+                    rs.getString("carga_contacto"),
+                    rs.getString("direccion"),
+                    rs.getString("ciudad"),
+                    rs.getString("region"),
+                    rs.getInt("cp"),
+                    rs.getString("pais"),
+                    rs.getInt("telefono"),
+                    rs.getInt("fax")
+                    );
+                    mostrar.add(cliente);
+            }  
+            }catch (SQLException e) {
+            System.out.println("Error en el Select: "+e.getMessage()+stm.toString());
+            }  
+            return mostrar;
+    }
+
     //leer
-    public POJO read(Integer id){
+    public POJO read(Integer idCliente){
         POJO cliente = null;
         PreparedStatement stm = null;
         
@@ -39,10 +76,10 @@ public class ClientesDAO {
             return null;
         }
         try {
-            String Query = "SELECT * FROM empleados WHERE id = ?";
-            stm = conexion.prepareStatement(Query);
+            String sql = "SELECT * FROM clientes WHERE id = ?";
+            stm = conexion.prepareStatement(sql);
 
-            ResultSet rs = stm.executeQuery();
+            ResultSet rs = stm.executeQuery(sql);
 
             if (rs.next()) {
                 cliente = new POJO (
@@ -60,7 +97,6 @@ public class ClientesDAO {
                         rs.getInt("fax")
                     );
             }
-
             stm.close();
 
         } catch (SQLException e) {
@@ -68,8 +104,7 @@ public class ClientesDAO {
             System.err.println("Error en el Select: " + e.getMessage() + stm.toString());
         }
 
-        return cliente;
-        
+        return cliente;  
     }
     
     //introducir 
@@ -80,9 +115,10 @@ public class ClientesDAO {
         if (this.conexion == null || cliente == null) {
             return null;
         }
-        String sql = "INSERT INTO CLIENTES VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
-    try{
-        stm = conexion.prepareStatement(sql);
+        
+        try{
+            String sql = "INSERT INTO CLIENTES VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+            stm = conexion.prepareStatement(sql);
               stm.setString(1, cliente.getCodigo());
               stm.setString(2, cliente.getEmpresa());
               stm.setString(3, cliente.getContacto());
@@ -111,9 +147,8 @@ public class ClientesDAO {
                 System.err.println("Error al insertar empleado: " + e.getMessage() + " " + stm.toString());
             }
           }
-    return resultado;
-  
- }
+        return resultado;
+    }
     
    
 }
