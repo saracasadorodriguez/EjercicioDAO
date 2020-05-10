@@ -3,6 +3,7 @@ package principal;
 import dao.ClientesDAO;
 import entidades.POJO;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class principal {
     static ClientesDAO clientes = new ClientesDAO();
     static POJO entidades = null;
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
         Scanner sn = new Scanner(System.in);
         boolean salir = false;
         int opcion;
@@ -41,7 +42,7 @@ public class principal {
                 switch (opcion) {
                    
                     case 1:  
-                    
+                    visualizar(entidades, clientes, visualizar,10);
                     break;
                     
                     case 2:
@@ -75,7 +76,7 @@ public class principal {
         }
     }
     
-    /*
+    
     //apartado1-2
     public static void visualizar (POJO entidades, ClientesDAO clientes, Integer desde, Integer hasta){
         System.out.println("__________________________________________________________________________________________________________________________");
@@ -86,13 +87,16 @@ public class principal {
        
         System.out.println("___________________________________________________________________________________________________________________________");
         
-    }*/
+    }
     
     //apartado3
     public static void introducir() throws IOException{ 
         Scanner sc = new Scanner(System.in);
         POJO cliente = new POJO();
         
+        System.out.println("Introducir id del Cliente");
+            cliente.setId(Integer.parseInt(sc.nextLine()));
+            
         System.out.println("Introducir Codigo del Cliente ");
             cliente.setCodigo(sc.nextLine());
             
@@ -115,28 +119,36 @@ public class principal {
             cliente.setRegion(sc.nextLine());
             
         System.out.println("Introducir Código Postal del Cliente ");
-            cliente.setCp(sc.nextInt());
+            cliente.setCp(sc.nextLine());
             
         System.out.println("Introducir Pais del Cliente ");
             cliente.setPais(sc.nextLine());
             
         System.out.println("Introducir Teléfono del Cliente ");
-            cliente.setTelefono(sc.nextInt());
+            cliente.setTelefono(sc.nextLine());
             
         System.out.println("Introducir Fax del Cliente ");
-            cliente.setFax(sc.nextInt());
+            cliente.setFax(sc.nextLine());
             
-        System.out.println("El cliente " + cliente.getCodigo() + " con nombre " + cliente.getContacto() + " ha sido añadido.");
+        //System.out.println("El cliente " + cliente.getCodigo() + " con nombre " + cliente.getContacto() + " ha sido añadido.");
+        
+        if (clientes.insert(cliente)) {
+            System.out.println("El cliente '" +cliente.getCodigo() + " con nombre " +  cliente.getContacto() 
+                    + "' ha sido añadido satisfactoriamente.");
+        } else {
+            System.err.println("El cliente que intenta introducir no es válido.\n");
+        }
         
     }
     
     //apartado4
-    public static void actualizar() throws IOException{
+    public static void actualizar() throws IOException {
         Scanner sc = new Scanner(System.in);
         POJO cliente = null;
         System.out.println("Introduce el ID del cliente que desea modificar : ");
         Integer id = Integer.parseInt(sc.nextLine());
-       
+        cliente = clientes.read(id);
+        
         while (true) {
             try { 
                 System.out.println("\n Opciones que puede modificar");
@@ -151,16 +163,19 @@ public class principal {
                     System.out.println("9.- Pais");
                     System.out.println("10.- Teléfono");
                     System.out.println("11.- Fax");
+                    System.out.println("0.- Salir");
                     
                     System.out.print("\nIntroduzca la modificación que desea realizar : ");
                     Integer opcion = Integer.parseInt(sc.nextLine());
-
+                    
                 switch (opcion) {
                     case 1:
                         System.out.printf("Introducir modificacion del Codigo : ");
+                        System.out.printf(cliente.getEmpresa());
+                        /*
                         cliente.setCodigo(sc.nextLine());
                         clientes.update(cliente);
-                        System.out.println("El cliente " + id + " ha sido modificado correctamente.");
+                        System.out.println("El cliente " + id + " ha sido modificado correctamente.");*/
                         break;
                     case 2:
                         System.out.printf("Introducir modificacion de Empresa : ");
@@ -200,7 +215,7 @@ public class principal {
                     break;
                     case 8:
                         System.out.printf("Introducir modificacion de Codigo Postal : ");
-                        cliente.setCp(Integer.parseInt(sc.nextLine()));
+                        cliente.setCp(sc.nextLine());
                         clientes.update(cliente);
                         System.out.println("El cliente " + id + " ha sido modificado correctamente.");
                     break;
@@ -212,15 +227,19 @@ public class principal {
                     break;
                     case 10:
                         System.out.printf("Introducir modificacion de Telefono : ");
-                        cliente.setTelefono(Integer.parseInt(sc.nextLine()));
+                        cliente.setTelefono(sc.nextLine());
                         clientes.update(cliente);
                         System.out.println("El cliente " + id + " ha sido modificado correctamente.");
                     break;
                     case 11:
                         System.out.printf("Introducir modificacion de Fax : ");
-                        cliente.setFax(Integer.parseInt(sc.nextLine()));
+                        cliente.setFax(sc.nextLine());
                         clientes.update(cliente);
                         System.out.println("El cliente " + id + " ha sido modificado correctamente.");
+                    break;
+                    case 0:
+                        
+                       
                     break;
                     default:
                         System.out.println("\nSolo debe introducir números entre 1 y 11\n");

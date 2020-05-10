@@ -14,12 +14,12 @@ public class POJO {
     public String direccion;
     public String ciudad;
     public String region;
-    public Integer cp;
+    public String cp;
     public String pais;
-    public Integer telefono;
-    public Integer fax;
+    public String telefono;
+    public String fax;
 
-    public POJO(Integer id, String codigo, String empresa, String contacto, String cargo_contacto, String direccion, String ciudad, String region, Integer cp, String pais, Integer telefono, Integer fax) {
+    public POJO(Integer id, String codigo, String empresa, String contacto, String cargo_contacto, String direccion, String ciudad, String region, String cp, String pais, String telefono, String fax) {
         this.id = id;
         this.codigo = codigo;
         this.empresa = empresa;
@@ -101,11 +101,11 @@ public class POJO {
         this.region = region;
     }
 
-    public Integer getCp() {
+    public String getCp() {
         return cp;
     }
 
-    public void setCp(Integer cp) {
+    public void setCp(String cp) {
         this.cp = cp;
     }
 
@@ -117,28 +117,28 @@ public class POJO {
         this.pais = pais;
     }
 
-    public Integer getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public Integer getFax() {
+    public String getFax() {
         return fax;
     }
 
-    public void setFax(Integer fax) {
+    public void setFax(String fax) {
         this.fax = fax;
     }
 
     @Override
     public String toString() {
-        return "id=" + id + ", codigo=" + codigo + ", empresa=" + empresa + ", contacto=" + contacto + ", cargo_contacto=" + cargo_contacto + ", direccion=" + direccion + ", ciudad=" + ciudad + ", region=" + region + ", cp=" + cp + ", pais=" + pais + ", telefono=" + telefono + ", fax=" + fax + '}';
+        return "POJO{" + "id=" + id + ", codigo=" + codigo + ", empresa=" + empresa + ", contacto=" + contacto + ", cargo_contacto=" + cargo_contacto + ", direccion=" + direccion + ", ciudad=" + ciudad + ", region=" + region + ", cp=" + cp + ", pais=" + pais + ", telefono=" + telefono + ", fax=" + fax + '}';
     }
-    
-    
+
+   
     
     
 }

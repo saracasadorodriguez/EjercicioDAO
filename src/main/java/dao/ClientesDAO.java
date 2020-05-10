@@ -56,10 +56,10 @@ public class ClientesDAO {
                     rs.getString("direccion"),
                     rs.getString("ciudad"),
                     rs.getString("region"),
-                    rs.getInt("cp"),
+                    rs.getString("cp"),
                     rs.getString("pais"),
-                    rs.getInt("telefono"),
-                    rs.getInt("fax")
+                    rs.getString("telefono"),
+                    rs.getString("fax")
                     );
                     mostrar.add(cliente);
             }  
@@ -78,26 +78,27 @@ public class ClientesDAO {
             return null;
         }
         try {
-            String sql = "SELECT * FROM clientes WHERE id = ?";
+            String sql = "SELECT * FROM clientes WHERE id = " + idCliente ;
             stm = conexion.prepareStatement(sql);
             ResultSet rs = stm.executeQuery(sql);
-
+           
             if (rs.next()) {
+                
                 cliente = new POJO (
                         rs.getInt("id"),
                         rs.getString("codigo"),
                         rs.getString("empresa"),
                         rs.getString("contacto"),
-                        rs.getString("carga_contacto"),
+                        rs.getString("cargo_contacto"),
                         rs.getString("direccion"),
                         rs.getString("ciudad"),
                         rs.getString("region"),
-                        rs.getInt("cp"),
+                        rs.getString("cp"),
                         rs.getString("pais"),
-                        rs.getInt("telefono"),
-                        rs.getInt("fax")
+                        rs.getString("telefono"),
+                        rs.getString("fax")
                     );
-            }
+            } 
             stm.close();
 
         } catch (SQLException e) {
@@ -109,7 +110,7 @@ public class ClientesDAO {
     }
     
     //max
-    public Integer numeroid() {
+    public Integer numeroid(){
         PreparedStatement stm = null;
         Integer id = null;
         
@@ -143,19 +144,20 @@ public class ClientesDAO {
         }
         
         try{
-            String sql = "INSERT INTO CLIENTES VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+            String sql = "INSERT INTO CLIENTES VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
             stm = conexion.prepareStatement(sql);
-              stm.setString(1, cliente.getCodigo());
-              stm.setString(2, cliente.getEmpresa());
-              stm.setString(3, cliente.getContacto());
-              stm.setString(4, cliente.getCargo_contacto());
-              stm.setString(5, cliente.getDireccion());
-              stm.setString(6, cliente.getCiudad());
-              stm.setString(7, cliente.getRegion());
-              stm.setInt(8, cliente.getCp());
-              stm.setString(9, cliente.getPais());
-              stm.setInt(10, cliente.getTelefono());
-              stm.setInt(11, cliente.getFax());
+              stm.setInt(1, cliente.getId());
+              stm.setString(2, cliente.getCodigo());
+              stm.setString(3, cliente.getEmpresa());
+              stm.setString(4, cliente.getContacto());
+              stm.setString(5, cliente.getCargo_contacto());
+              stm.setString(6, cliente.getDireccion());
+              stm.setString(7, cliente.getCiudad());
+              stm.setString(8, cliente.getRegion());
+              stm.setString(9, cliente.getCp());
+              stm.setString(10, cliente.getPais());
+              stm.setString(11, cliente.getTelefono());
+              stm.setString(12, cliente.getFax());
               stm.executeUpdate();
 
             if (stm.executeUpdate() > 0) {
@@ -163,14 +165,14 @@ public class ClientesDAO {
             }
             
         }catch (SQLException e) {
-           System.out.println("Error al insertar empleado: " + e.getMessage() + " " + stm.toString());
+           System.out.println("Error al insertar cliente: " + e.getMessage());
         }finally{
           try{
             if (stm != null){
                 stm.close();
             } 
             }catch (SQLException e) {
-                System.err.println("Error al insertar empleado: " + e.getMessage() + " " + stm.toString());
+                System.err.println("Error al insertar cliente: " + e.getMessage() + " " + stm.toString());
             }
           }
         return resultado;
@@ -178,7 +180,7 @@ public class ClientesDAO {
     
     
      //actualizar datos del cliente
-    public Boolean update(POJO cliente) {
+    public Boolean update(POJO cliente){
         Boolean resultado = null;
         PreparedStatement stm = null;
 
@@ -199,10 +201,10 @@ public class ClientesDAO {
             stm.setString(5, cliente.getDireccion());
             stm.setString(6, cliente.getCiudad());
             stm.setString(7, cliente.getRegion());
-            stm.setInt(8, cliente.getCp());
+            stm.setString(8, cliente.getCp());
             stm.setString(9, cliente.getPais());
-            stm.setInt(10, cliente.getTelefono());
-            stm.setInt(11, cliente.getFax());
+            stm.setString(10, cliente.getTelefono());
+            stm.setString(11, cliente.getFax());
             stm.setInt(12, cliente.getId());
             
             stm.executeUpdate();
