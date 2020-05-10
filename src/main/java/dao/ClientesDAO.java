@@ -32,16 +32,19 @@ public class ClientesDAO {
     }
     
     //mostrar clientes utilizando Arraylist
-    public ArrayList<POJO> mostrar(Integer desde, Integer cuantos, String order, String filtro) throws SQLException{
+    public ArrayList<POJO> mostrar(Integer desde, Integer hasta){
          ArrayList<POJO> mostrar = new ArrayList<>();
          POJO cliente = null;
          PreparedStatement stm = null;
+         
         if (this.conexion == null){
             return null;
         }
         try{
-            String sql = "SELECT * from clientes LIMIT ? " + ", ? ";
+            String sql = "SELECT * FROM clientes LIMIT ? " + ", ? ";
             stm = conexion.prepareStatement(sql); 
+            stm.setInt(1,desde);
+            stm.setInt(2,hasta);
             ResultSet rs = stm.executeQuery(sql); 
             while(rs.next()){
                 cliente = new POJO(
@@ -61,7 +64,7 @@ public class ClientesDAO {
                     mostrar.add(cliente);
             }  
             }catch (SQLException e) {
-            System.out.println("Error en el Select: "+e.getMessage()+stm.toString());
+            System.out.println("Error en el Select: "+e.getMessage()+ stm.toString());
             }  
             return mostrar;
     }
@@ -77,7 +80,6 @@ public class ClientesDAO {
         try {
             String sql = "SELECT * FROM clientes WHERE id = ?";
             stm = conexion.prepareStatement(sql);
-
             ResultSet rs = stm.executeQuery(sql);
 
             if (rs.next()) {
@@ -141,7 +143,7 @@ public class ClientesDAO {
         }
         
         try{
-            String sql = "INSERT INTO CLIENTES VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+            String sql = "INSERT INTO CLIENTES VALUES (?,?,?,?,?,?,?,?,?,?,?);";
             stm = conexion.prepareStatement(sql);
               stm.setString(1, cliente.getCodigo());
               stm.setString(2, cliente.getEmpresa());
@@ -185,9 +187,11 @@ public class ClientesDAO {
         }
 
         try {
-            String sql = "UPDATE empleados SET codigo = ?, empresa = ?, contacto = ?, cargo_contacto = ?"
-            + ", direccion = ?, ciudad = ?, region = ?, cp = ?, pais = ?, telefono = ?, fax = ? WHERE id = ?";
+            String sql = "UPDATE cliente SET codigo=?, empresa=?, contacto=?, cargo_contacto=?"
+            + ", direccion=?, ciudad=?, region=?, cp=?, pais=?, telefono=?, fax=? WHERE id=?";
+
             stm = conexion.prepareStatement(sql);
+            
             stm.setString(1, cliente.getCodigo());
             stm.setString(2, cliente.getEmpresa());
             stm.setString(3, cliente.getContacto());
@@ -199,13 +203,13 @@ public class ClientesDAO {
             stm.setString(9, cliente.getPais());
             stm.setInt(10, cliente.getTelefono());
             stm.setInt(11, cliente.getFax());
-              
-            if (stm.executeUpdate() > 0) {
-                resultado = true;
-            }
+            stm.setInt(12, cliente.getId());
+            
+            stm.executeUpdate();
+            
             
         } catch (SQLException e) {
-            System.err.println("Error en el Update: " + e.getMessage()+ stm.toString());
+            System.err.println("Error en el Update: " + e.getMessage());
             
         } finally {
             try {
@@ -226,7 +230,7 @@ public class ClientesDAO {
         PreparedStatement stm = null;
 
         try {
-            String sql = "DELETE FROM empleados WHERE codigoempleado = ?";
+            String sql = "DELETE FROM clientes WHERE id = ?";
             stm = conexion.prepareStatement(sql);
             stm.setInt(1, idCliente);
 
