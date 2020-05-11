@@ -240,12 +240,12 @@ public class principal {
                         clientes.update(cliente);
                         System.out.println("El cliente " + id + " ha sido modificado correctamente.");
                     break;
+                    
                     case 0:
-                        
-                       
-                    break;
+                    return;
+                    
                     default:
-                        System.out.println("\nSolo debe introducir números entre 1 y 11\n");
+                        System.out.println("\nSolo debe introducir números entre 0 y 11\n");
                 }
                 } catch (NumberFormatException e) {
                 System.err.println("\nError: " + e.getMessage() + "\n");
