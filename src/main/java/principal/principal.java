@@ -21,7 +21,7 @@ public class principal {
         Scanner sn = new Scanner(System.in);
         boolean salir = false;
         int opcion;
-        int visualizar = 0;
+        Integer visualizar = 0;
         
         visualizar(entidades,clientes,0,10); //visualizar tabla
         
@@ -44,12 +44,14 @@ public class principal {
                 switch (opcion) {
                    
                     case 1:  
-                    
+                    visualizar+=10;
                     visualizar(entidades,clientes,visualizar,10); 
                     break;
                     
                     case 2:
-                        
+                   
+                    visualizar-=10;
+                    visualizar(entidades,clientes,visualizar,10); 
                     break;
                     
                     case 3:
@@ -156,24 +158,24 @@ public class principal {
         
         while (true) {
             try { 
-                System.out.println("\n Opciones que puede modificar");
-                    System.out.println("1.- Codigo");
-                    System.out.println("2.- Empresa");
-                    System.out.println("3.- Contacto");
-                    System.out.println("4.- Cargo");
-                    System.out.println("5.- Dirección ");
-                    System.out.println("6.- Ciudad");
-                    System.out.println("7.- Región");
-                    System.out.println("8.- Código Postal");
-                    System.out.println("9.- Pais");
-                    System.out.println("10.- Teléfono");
-                    System.out.println("11.- Fax");
-                    System.out.println("0.- Salir");
+             System.out.println("\n Opciones que puede modificar");
+                  System.out.println("1.- Codigo");
+                  System.out.println("2.- Empresa");
+                  System.out.println("3.- Contacto");
+                  System.out.println("4.- Cargo");
+                  System.out.println("5.- Dirección ");
+                  System.out.println("6.- Ciudad");
+                  System.out.println("7.- Región");
+                  System.out.println("8.- Código Postal");
+                  System.out.println("9.- Pais");
+                  System.out.println("10.- Teléfono");
+                  System.out.println("11.- Fax");
+                  System.out.println("0.- Salir");
                     
-                    System.out.print("\nIntroduzca la modificación que desea realizar : ");
-                    Integer opcion = Integer.parseInt(sc.nextLine());
+                  System.out.print("\nIntroduzca la modificación que desea realizar : ");
+                  Integer opcion = Integer.parseInt(sc.nextLine());
                     
-                switch (opcion) {
+                  switch (opcion) {
                     case 1:
                         System.out.printf("Introducir modificacion del Codigo : ");
                         System.out.printf(cliente.getEmpresa());
@@ -249,10 +251,10 @@ public class principal {
                     default:
                         System.out.println("\nSolo debe introducir números entre 1 y 11\n");
                 }
-            } catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
                 System.err.println("\nError: " + e.getMessage() + "\n");
-            }
-        }
+                }
+         }
     }
     
     //apartado5
