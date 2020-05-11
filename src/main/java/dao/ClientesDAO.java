@@ -208,7 +208,9 @@ public class ClientesDAO {
             stm.setString(11, cliente.getFax());
             stm.setInt(12, cliente.getId());
             
-            stm.executeUpdate();
+             if(stm.executeUpdate()>0){
+                resultado = true;
+            }
             
             
         } catch (SQLException e) {

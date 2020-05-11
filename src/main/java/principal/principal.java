@@ -137,11 +137,9 @@ public class principal {
         System.out.println("Introducir Fax del Cliente ");
             cliente.setFax(sc.nextLine());
             
-        //System.out.println("El cliente " + cliente.getCodigo() + " con nombre " + cliente.getContacto() + " ha sido añadido.");
-        
         if (clientes.insert(cliente)) {
             System.out.println("El cliente '" +cliente.getCodigo() + " con nombre " +  cliente.getContacto() 
-                    + "' ha sido añadido satisfactoriamente.");
+                    + "' ha sido añadido.");
         } else {
             System.err.println("El cliente que intenta introducir no es válido.\n");
         }
@@ -178,11 +176,9 @@ public class principal {
                   switch (opcion) {
                     case 1:
                         System.out.printf("Introducir modificacion del Codigo : ");
-                        System.out.printf(cliente.getEmpresa());
-                        /*
                         cliente.setCodigo(sc.nextLine());
                         clientes.update(cliente);
-                        System.out.println("El cliente " + id + " ha sido modificado correctamente.");*/
+                        System.out.println("El cliente " + id + " ha sido modificado correctamente.");
                         break;
                     case 2:
                         System.out.printf("Introducir modificacion de Empresa : ");
@@ -258,13 +254,33 @@ public class principal {
     }
     
     //apartado5
+    
+    public static POJO existe(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Indique el id del cliente que desea saber si existe : ");
+        Integer id = sc.nextInt();
+        entidades = clientes.read(id);
+        if(entidades==null){
+            System.out.println("El Cliente que desea no existe.");
+        }else{
+            System.out.println("El cliente " + id + " existe");  
+        }    
+        return entidades;
+        
+    }
+    
     public static void eliminar() throws IOException{
        Scanner sc = new Scanner(System.in);
-        
-        System.out.printf("\nIntroduce el ID del cliente que desea eliminar : ");
-           Integer id = Integer.parseInt(sc.next());
-           clientes.delete(id);
-        System.out.println("El cliente " + id + " ha sido eliminado Correctamente.");  
+       POJO entidades = existe();
+       System.out.printf("\nIntroduce el ID del cliente que desea eliminar : ");
+       Integer id = Integer.parseInt(sc.next());
+             
+        if(entidades==null){
+            System.out.println("El Cliente introducido no existe.");
+        }else{
+            clientes.delete(id);
+            System.out.println("El cliente " + id + " ha sido eliminado Correctamente.");  
+        }    
     }
 
 }
