@@ -45,14 +45,14 @@ public class ClientesDAO {
             stm = conexion.prepareStatement(sql); 
             stm.setInt(1,desde);
             stm.setInt(2,hasta);
-            ResultSet rs = stm.executeQuery(sql); 
+            ResultSet rs = stm.executeQuery(); 
             while(rs.next()){
                 cliente = new POJO(
                     rs.getInt("id"),
                     rs.getString("codigo"),
                     rs.getString("empresa"),
                     rs.getString("contacto"),
-                    rs.getString("carga_contacto"),
+                    rs.getString("cargo_contacto"),
                     rs.getString("direccion"),
                     rs.getString("ciudad"),
                     rs.getString("region"),
@@ -61,6 +61,7 @@ public class ClientesDAO {
                     rs.getString("telefono"),
                     rs.getString("fax")
                     );
+                
                     mostrar.add(cliente);
             }  
             }catch (SQLException e) {
@@ -110,7 +111,7 @@ public class ClientesDAO {
     }
     
     //max
-    public Integer numeroid(){
+    public Integer maxid(){
         PreparedStatement stm = null;
         Integer id = null;
         
@@ -124,7 +125,7 @@ public class ClientesDAO {
             ResultSet rs = stm.executeQuery();
             
             if(rs.next()){
-                id = rs.getInt("numeroID"); 
+                id = rs.getInt("maxid"); 
             }
             stm.close();
             

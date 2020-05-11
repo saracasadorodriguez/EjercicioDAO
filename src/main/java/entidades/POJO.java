@@ -135,8 +135,9 @@ public class POJO {
 
     @Override
     public String toString() {
-        return "POJO{" + "id=" + id + ", codigo=" + codigo + ", empresa=" + empresa + ", contacto=" + contacto + ", cargo_contacto=" + cargo_contacto + ", direccion=" + direccion + ", ciudad=" + ciudad + ", region=" + region + ", cp=" + cp + ", pais=" + pais + ", telefono=" + telefono + ", fax=" + fax + '}';
+        return String.format("  %2s    %5s\t    %-38s  %-19s\t  %-6s\t %15s\t %-12s \t%-18s  %-10s ",id,codigo,empresa,contacto,cp,ciudad,pais,telefono,fax);
     }
+    
 
    
     

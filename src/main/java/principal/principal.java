@@ -22,11 +22,13 @@ public class principal {
         boolean salir = false;
         int opcion;
         int visualizar = 0;
-         
+        
+        visualizar(entidades,clientes,0,10); //visualizar tabla
+        
         while (!salir){
  
-           System.out.println("\n   Base de datos de clientes ");
-           System.out.println("-----------------------------------");
+           System.out.println("\n   Base de datos de Clientes ");
+           System.out.println("___________________________________________________________");
            System.out.println("1.- Visualizar los diez siguientes");
            System.out.println("2.- Visualizar los diez anteriores");
            System.out.println("3.- Introducir nuevo registro");
@@ -35,14 +37,15 @@ public class principal {
            System.out.println("0.- Salir");
  
             try {
-                
+                System.out.println("___________________________________________________________");
                 System.out.println("Introduzca una de las opciones :");
                 opcion = sn.nextInt();
  
                 switch (opcion) {
                    
                     case 1:  
-                    visualizar(entidades, clientes, visualizar,10);
+                    
+                    visualizar(entidades,clientes,visualizar,10); 
                     break;
                     
                     case 2:
@@ -79,13 +82,15 @@ public class principal {
     
     //apartado1-2
     public static void visualizar (POJO entidades, ClientesDAO clientes, Integer desde, Integer hasta){
-        System.out.println("__________________________________________________________________________________________________________________________");
-        				
-        System.out.println("   Id     Codigo    Empresa     Contacto     Cargo     C.Postal    Ciudad     Pais     Telefono     Fax  ");
-        System.out.println("___________________________________________________________________________________________________________________________");
+        System.out.println("_________________________________________________________________________________________________________________________________________________________________________________");		
+        System.out.println("  ID   CODIGO             EMPRESA                            CONTACTO              CODIGO POSTAL               CIUDAD         PAIS           TELEFONO               FAX");
+        System.out.println("_________________________________________________________________________________________________________________________________________________________________________________");
         					
-       
-        System.out.println("___________________________________________________________________________________________________________________________");
+       clientes.mostrar(desde,hasta).forEach((mostrar) -> {            
+            System.out.println(mostrar);
+        }
+        );
+        System.out.println("_________________________________________________________________________________________________________________________________________________________________________________");
         
     }
     
