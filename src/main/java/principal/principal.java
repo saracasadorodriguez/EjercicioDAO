@@ -29,12 +29,12 @@ public class principal {
  
            System.out.println("\n   Base de datos de Clientes ");
            System.out.println("___________________________________________________________");
-           System.out.println("1.- Visualizar los diez siguientes");
-           System.out.println("2.- Visualizar los diez anteriores");
-           System.out.println("3.- Introducir nuevo registro");
-           System.out.println("4.- Actualizar datos de cliente por IdCliente ");
-           System.out.println("5.- Borrar datos por IdCliente");
-           System.out.println("0.- Salir");
+           System.out.println(" 1.- Visualizar los diez siguientes");
+           System.out.println(" 2.- Visualizar los diez anteriores");
+           System.out.println(" 3.- Introducir nuevo registro");
+           System.out.println(" 4.- Actualizar datos de cliente por IdCliente ");
+           System.out.println(" 5.- Borrar datos por IdCliente");
+           System.out.println(" 0.- Salir");
  
             try {
                 System.out.println("___________________________________________________________");
@@ -84,15 +84,15 @@ public class principal {
     
     //apartado1-2
     public static void visualizar (POJO entidades, ClientesDAO clientes, Integer desde, Integer hasta){
-        System.out.println("_________________________________________________________________________________________________________________________________________________________________________________");		
-        System.out.println("  ID   CODIGO             EMPRESA                            CONTACTO              CODIGO POSTAL               CIUDAD         PAIS           TELEFONO               FAX");
-        System.out.println("_________________________________________________________________________________________________________________________________________________________________________________");
+        System.out.println("______________________________________________________________________________________________________________________________________________________________________________");		
+        System.out.println("   ID   CODIGO             EMPRESA                         CONTACTO               CODIGO POSTAL     CIUDAD              PAIS               TELEFONO               FAX");
+        System.out.println("______________________________________________________________________________________________________________________________________________________________________________");
         					
        clientes.mostrar(desde,hasta).forEach((mostrar) -> {            
             System.out.println(mostrar);
         }
-        );
-        System.out.println("_________________________________________________________________________________________________________________________________________________________________________________");
+        ); 
+        System.out.println("______________________________________________________________________________________________________________________________________________________________________________");
         
     }
     
@@ -149,13 +149,16 @@ public class principal {
     //apartado4
     public static void actualizar() throws IOException {
         Scanner sc = new Scanner(System.in);
-        POJO cliente = null;
+        POJO cliente = existe();
+       
         System.out.println("Introduce el ID del cliente que desea modificar : ");
         Integer id = Integer.parseInt(sc.nextLine());
         cliente = clientes.read(id);
+        System.out.println("Cliente que desea modificar : " + cliente.getId()+ " | "+ cliente.getCodigo()+ " | " + cliente.getEmpresa()+ " | " +cliente.getContacto());
         
         while (true) {
             try { 
+             Integer opcion = 0;
              System.out.println("\n Opciones que puede modificar");
                   System.out.println("1.- Codigo");
                   System.out.println("2.- Empresa");
@@ -169,10 +172,19 @@ public class principal {
                   System.out.println("10.- Teléfono");
                   System.out.println("11.- Fax");
                   System.out.println("0.- Salir");
-                    
-                  System.out.print("\nIntroduzca la modificación que desea realizar : ");
-                  Integer opcion = Integer.parseInt(sc.nextLine());
-                    
+                   
+                  while(true){
+                      try{
+                          System.out.print("\nIntroduzca la modificación que desea realizar : ");
+                          String opc = sc.nextLine();
+                          opcion = Integer.parseInt(opc);
+                          
+                      break;
+                      }catch(InputMismatchException e){
+                          System.out.println("Debes insertar un número");
+                      }
+                  }
+
                   switch (opcion) {
                     case 1:
                         System.out.printf("Introducir modificacion del Codigo : ");
@@ -254,7 +266,6 @@ public class principal {
     }
     
     //apartado5
-    
     public static POJO existe(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Indique el id del cliente que desea saber si existe : ");

@@ -135,7 +135,7 @@ public class POJO {
 
     @Override
     public String toString() {
-        return String.format("  %2s    %5s\t    %-38s  %-19s\t  %-6s\t %15s\t %-12s \t%-18s  %-10s ",id,codigo,empresa,contacto,cp,ciudad,pais,telefono,fax);
+        return String.format(" %4s   %5s    %-35s     %-24s     %-10s    %-15s    %-15s    %-8s    %15s  ",id,codigo,empresa,contacto,cp,ciudad,pais,telefono,fax);
     }
     
 

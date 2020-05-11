@@ -190,7 +190,7 @@ public class ClientesDAO {
         }
 
         try {
-            String sql = "UPDATE cliente SET codigo=?, empresa=?, contacto=?, cargo_contacto=?"
+            String sql = "UPDATE clientes SET codigo=?, empresa=?, contacto=?, cargo_contacto=?"
             + ", direccion=?, ciudad=?, region=?, cp=?, pais=?, telefono=?, fax=? WHERE id=?";
 
             stm = conexion.prepareStatement(sql);
