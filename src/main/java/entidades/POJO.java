@@ -136,10 +136,6 @@ public class POJO {
     @Override
     public String toString() {
         return String.format(" %4s   %5s    %-35s     %-24s     %-10s    %-15s    %-15s    %-8s    %15s  ",id,codigo,empresa,contacto,cp,ciudad,pais,telefono,fax);
-    }
-    
-
-   
-    
+    }   
     
 }
