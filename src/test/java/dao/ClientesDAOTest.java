@@ -75,9 +75,11 @@ public class ClientesDAOTest {
     @Test
     public void testRead() {
         System.out.println("Read");
-        POJO resesperado = new POJO (1,"ALFKI","Alfreds Futterkiste","Maria Anders","Representante de ventas","Obere Str. 57","Berlín",null,"12209","Alemania","030-0074321","030-0076545");
+        Integer id = 1;
+        POJO resesperado;
+        resesperado = new POJO (1,"ALFKI","Alfreds Futterkiste","Maria Anders","Representante de ventas","Obere Str. 57","Berlín",null,"12209","Alemania","030-0074321","030-0076545");
         POJO resultado;
-        resultado = clientes.read(1);
+        resultado = clientes.read(id);
         assertEquals(resultado.getId(),resesperado.getId());
     }
 
@@ -88,9 +90,8 @@ public class ClientesDAOTest {
     @Test
     public void testMaxid() {
         System.out.println("maxid");
-        ClientesDAO instance = new ClientesDAO();
         Integer resesperado = null;
-        Integer resultado = instance.maxid();
+        Integer resultado = clientes.maxid();
         assertEquals(resesperado, resultado);
     }
 
@@ -101,8 +102,9 @@ public class ClientesDAOTest {
     @Test
     public void testInsert() {
         System.out.println("Insert");
-        POJO cliente = null;
-        Boolean resesperado = true;
+        POJO cliente = new POJO();
+        Boolean resesperado;
+        resesperado = true;
         Boolean resultado;
         resultado = clientes.insert(cliente);
         assertEquals(resesperado, resultado);
@@ -116,10 +118,9 @@ public class ClientesDAOTest {
     public void testUpdate() {
         System.out.println("Update");
         POJO cliente = null;
-        ClientesDAO instance = new ClientesDAO();
-        Boolean resesperado = null;
+        Boolean resesperado = false;
         Boolean resultado;
-        resultado = instance.update(cliente);
+        resultado = clientes.update(cliente);
         assertEquals(resesperado, resultado);
     }
 
@@ -130,11 +131,10 @@ public class ClientesDAOTest {
     @Test
     public void testDelete() {
         System.out.println("Delete");
-        Integer idCliente = null;
-        ClientesDAO instance = new ClientesDAO();
-        Boolean resesperado = null;
+        Integer id = 1;
+        Boolean resesperado = false;
         Boolean resultado;
-        resultado = instance.delete(idCliente);
+        resultado = clientes.delete(id);
         assertEquals(resesperado, resultado);
     }
     
