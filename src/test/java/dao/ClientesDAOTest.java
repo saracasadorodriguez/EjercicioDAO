@@ -47,9 +47,8 @@ public class ClientesDAOTest {
     @Test
     public void testGetConexion() {
         System.out.println("getConexion");
-        ClientesDAO instance = new ClientesDAO();
         Connection resesperado = null;
-        Connection resultado = instance.getConexion();
+        Connection resultado = clientes.getConexion();
         assertNotEquals(resesperado, resultado);
         
     }
@@ -90,9 +89,9 @@ public class ClientesDAOTest {
     @Test
     public void testMaxid() {
         System.out.println("maxid");
-        Integer resesperado = null;
+        Integer resesperado = 92;
         Integer resultado = clientes.maxid();
-        assertEquals(resesperado, resultado);
+        assertNotEquals(resesperado, resultado);
     }
 
     /**
@@ -102,9 +101,9 @@ public class ClientesDAOTest {
     @Test
     public void testInsert() {
         System.out.println("Insert");
-        POJO cliente = new POJO();
+        POJO cliente = new POJO(92,"SCRCR","Cualquiera","Sara Casado","Propietario","Avda.Olimpica","Madrid",null,"28935","España","030-0074321","030-0076545");
         Boolean resesperado;
-        resesperado = true;
+        resesperado = false;
         Boolean resultado;
         resultado = clientes.insert(cliente);
         assertEquals(resesperado, resultado);
@@ -131,11 +130,10 @@ public class ClientesDAOTest {
     @Test
     public void testDelete() {
         System.out.println("Delete");
-        Integer id = 1;
-        Boolean resesperado = false;
+        Integer id = 92;
         Boolean resultado;
         resultado = clientes.delete(id);
-        assertEquals(resesperado, resultado);
+        assertEquals(false, resultado);
     }
     
 }
