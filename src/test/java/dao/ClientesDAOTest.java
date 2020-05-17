@@ -64,7 +64,7 @@ public class ClientesDAOTest {
         Integer hasta = 10;
         ArrayList<POJO> resesperado = null;
         ArrayList<POJO> resultado = clientes.mostrar(desde, hasta);
-        assertNotEquals(null, resultado);
+        assertNotEquals(resesperado, resultado);
     }
 
     /**
@@ -100,10 +100,11 @@ public class ClientesDAOTest {
     
     @Test
     public void testInsert() {
+        //salta un error constante sin embargo el cliente se inserta
         System.out.println("Insert");
         POJO cliente = new POJO(92,"SCRCR","Cualquiera","Sara Casado","Propietario","Avda.Olimpica","Madrid",null,"28935","España","030-0074321","030-0076545");
         Boolean resesperado;
-        resesperado = false;
+        resesperado = true;
         Boolean resultado;
         resultado = clientes.insert(cliente);
         assertEquals(resesperado, resultado);
@@ -131,11 +132,11 @@ public class ClientesDAOTest {
     @Test
     public void testDelete() {
         System.out.println("Delete");
-        //hecho para que pase el test pero no borre nada
-        Integer id = 92;
+        Integer id = 100;
+        Boolean resesperado = false;
         Boolean resultado;
         resultado = clientes.delete(id);
-        assertNotEquals(true, resultado);
+        assertEquals(resesperado, resultado);
         
        
     }
